@@ -33,6 +33,8 @@ Such as: Customer WikiPage Account AddressParser
 Not as : Manager Processor Data Info  
 ```  
 
+> 函数是语言的动词，类是名词  
+
 #### 方法名  
 
 > 方法名应当是动词或动词短语  
@@ -101,16 +103,17 @@ if语句，else语句，while语句等，其中的代码快应该只有一行。
 
 > 函数的缩进层级不该多于一层或两层  
 
-** 函数应该做好一件事。做好这件事，只做一件事 **    
+**函数应该做好一件事。做好这件事，只做一件事**    
  
 
 > 函数中的语句都要在同一个抽象层级上  
 
 #### 向下规则  
 
-每个函数后面都跟位于下一抽象层级的函数  
+每个函数后面都跟位于下一抽象层级的函数    
 
-*程序就像是一序列TO起头的段落，没一段都描述当前抽象层级，并引用位于下一抽象层级的后续啊TO起头的段落 *    
+
+*程序就像是一序列TO起头的段落，没一段都描述当前抽象层级，并引用位于下一抽象层级的后续啊TO起头的段落*    
 
 
 **如果每个例程都让你感到深合己意，那就是整洁代码**  
@@ -225,4 +228,140 @@ if (attributeExists("username")) {
 
 > 把指令和询问分隔开来  
 
+#### 抽离TryCatch代码块  
+
+把try和catch代码块的主题部分抽离出来，另外形成函数  
+
+```java
+public void delete(Page page) {
+	try {
+		deletePageAndAllReference(page);
+	}
+	catch (Exception e) {
+		logError(e);
+	}
+}
+
+private void deletePageAllReference(Page page) throws Exception {
+	deletePage(page);
+	registry.deleteReference(page.name);
+	configKeys.deleteKey(page.name.makeKey());
+}
+
+private void logError(Exception e) {
+	logger.log(e.getMessage());
+}
+```
+
+#### 错误处理就是一件事  
+
+处理错误的函数不该做其他事  
+
+这意味着如果关键字try在某个函数中存在，它就该是这个函数的第一个单词，而且在catch/finally代码块后面也不该有其他内容  
+
+#### 注释  
+
+与其花时间编写解释你糟糕的代码的注释，不如花时间清洁糟糕的代码  
+
+1. 对意图的解释  
+2. 阐释  
+	- 把晦涩难明的参数或返回值的意义翻译为某种可读形式  
+3. 警示  
+	- 警告其他程序员会出现某种后果  
+
+**TODO注释**  
+
+在源码中放置要做的工作列表  
+是程序员认为应该做，但是还没做的工作  
+
+```java
+//TODO-MdM these are not needed
+// We except this to go away we do the checkout meodel  
+protected VersionInfo makeVersion() throws Excpetion {
+return null;
+}
+```
+
+> 不必每个函数都要有Javadoc或每个变量有要有注释  
+
+*能用函数或变量时就别用注释*  
+
+> 不要直接把代码注释掉  
+
+
+### 代码格式  
+
+#### 垂直格式  
+
+文件长度在200行到500行之间比较合适  
+
+**概念间垂直方向上的区隔**    
+在封包声明，导入声明和每个函数之间，都有空白行隔开  
+
+**垂直方向上的靠近**  
+紧密相关的代码应该相互靠近  
+
+1. 多个实体变量的定义  
+
+> 尽量不把关系密切的概念放到不同的文件中  
+
+**变量声明**  
+变量声明应该尽可能靠近其使用的位置  
+本地变量应该在函数的顶部出现  
+
+**实体变量**  
+应该在类的顶部声明  
+应该被该类的所有方法或大部分方法所用  
+让大家知道在哪儿可以看到这些声明  
+
+**相关函数**  
+若某个函数调用另外一个，就应该把它们放在一起  
+调用者应该尽可能的放在被调用者上面  
+
+#### 横向格式  
+
+> 无需拖动滚动条原则    
+
+#### 水平方向上的区隔与接近  
+
+```
+使用空格字符将彼此紧密相关的食物连接到一起  
+把相关性较弱的食物分割开  
+```
+
+1. 在赋值符周围加上空格  
+2. 函数参数前加空格  
+3. 不在函数名和左圆括号之间加空格  
+ 
+乘法因子之间可以不加空格(优先级较高)，加减法之间加空格，优先级较低   
+
+#### 数据传送对象DTO  
+
+只含有公共变量，没有函数的类  
+
+```java
+public class Address {
+	private String street;
+	private String streetExtra;
+	private String city;
+
+	public Address(String street, String streetExtra, String city) {
+	this.street = street;
+	this.streetExtra = streetExtra;
+	this.city = city;
+	}
+
+	public String getStreet() {
+		return street;
+	}
+
+	public String getStreetExtra() {
+		return streetExtra;
+	}
+
+	public String getCity() {
+		return city;
+	}
+}
+```
 
