@@ -168,7 +168,7 @@ transform(StringBuffer out)
 
 不要向函数传入布尔值  
 
-应该用把函数一分为而，分别处理true 和 false部分  
+应该用把函数一分为二，分别处理true 和 false部分  
 
 尽量把二元函数转换成一元函数  
 
@@ -184,7 +184,7 @@ Circle makeCircle(double x, double y, double radius)
 Circle makeCircle(Point center, double radius)  
 ```
 
-> 当一组参数共同被传递，往往就是该有自己名称的某一个概念的一部分  ‘
+> 当一组参数共同被传递，往往就是该有自己名称的某一个概念的一部分  
 
 #### 参数列表  
 
@@ -364,4 +364,90 @@ public class Address {
 	}
 }
 ```
+
+### 错误处理   
+
+#### 依调用者需要定义异常类  
+
+```java
+public class LocalPort {
+	private ASMEPort innerPort;
+
+	public LocalPort(int portNumber) {
+		innrPort = new ACMEPort(portNumber);
+	}
+
+	public void open() {
+		try {
+			innerPort.open();
+		} catch (DeviceResponseException e) {
+			throw new PortDeviceFailure(e);
+		} catch (ATM1212UnlockedException e) {
+			throw new PortDeviceRailure(e);
+		} catch (GMXError e) {
+			throw new PortDeviceFailure(e);
+		}
+	}
+}
+```
+
+**不要返回null值**  
+
+若需要返回空列表，可以用Collections.emptyList()  
+	
+**别传递null值**  
+
+尽量不要将null值传递给其他方法  
+
+如果有人传入null值，可以使用断言来处理  
+
+```
+assert <boolean表达式> : <错误信息表达式>
+```
+如果<boolean表达式>为true，则程序继续执行  
+如果为false,则程序抛出java.lang.AssertionError,并输入<错误表达式>  
+
+```java
+public class MetricsCalculator {
+	public double xProjection(Point p1, Point p2) {
+		assert p1 != null : "p1 should not be null";
+		assert p2 != null : "p2 should not be null";
+		return (p2.x = p1.x) * 1.5;
+	}
+}
+```
+
+> 将错误隔离看待，独立于主要逻辑之外，防止错误处理终端主体代码  
+
+### 类  
+
+#### 类的组织  
+
+类应该从一组变量列表开始   
+
+1. 公共静态常量  
+2. 私有静态常量  
+3. 私有实体变量  
+4. 公共变量  
+5. 公共函数  
+6. 私有工具函数(紧跟调用其的公共函数)  
+
+#### 类应该短小  
+
+> 类的第一条原则是应该短小  
+
+**单一权责原则SPR**  
+类或模块应有且只有一条加以修改的理由  
+
+> 类应该只负责一块
+
+*系统应该由许多短小的类而不是少量巨大的类组成。每个小类封装一个权责，只有一个修改的原因，并与少数其他类一起协同达成期望的系统行为*  
+
+**内聚性**  
+类应该只有少量实体变量  
+每个方法都应该操作一个或多个这种变量   
+方法操作的变量越多，就越粘聚到类上  
+
+> 如果一个类的每个变量都被每个方法所用，则该类具有最大的内聚性  
+
 
