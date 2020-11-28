@@ -1,5 +1,21 @@
 ## Clean Code  
 
+1. *神在细节之中*  
+2. *整洁的代码只做好一件事*  
+3. *如何在意代码*  
+4. *让营地比你来时更干净*  
+
+**简洁代码**  
+
+- 能通过所有测试  
+- 没有重复代码  
+- 体现系统中全部设计理念  
+- 包括尽量少的实体，比如类，方法，函数等  
+
+> 如果每个里程都让你感到深合己意，那就是整洁代码。  
+> 如果代码让编程语言看起来像是专为解决那个问题而存在，就可以称之为漂亮的代码  
+> -- Ward Cunningham  
+
 ### 有意义的命名  
 
 ```
@@ -7,6 +23,49 @@
 ```
 
 > 如果名称需要注释来补充，那就不算是名副其实  
+
+**代码要关联上下文**  
+
+没有关联,不知道这个方法是干什么的  
+```java
+public List<int[]> getThem() {
+	List<int[]> list1 = new ArrayList<int[]();
+	for (int[] x : theList)
+		if (x[0] == 4)
+			list1.add(x);
+		return list1;
+}
+```
+
+- theList中是什么类型的东西  
+- theList零下标条目的意义是什么  
+- 值4的意义是什么  
+- 我怎么使用返回的列表  
+
+比方说我们在开发一种扫雷游戏，我们发现，盘面是名为`theList`的单元格列表，那就将其名称改为`gameBoard`。  
+盘面上每一个单元格都用一个简单数组表示。我们还发现，零下标条目是一种`状态值`，而该状态值为`4`表示`已标记`。只要改为有意义的名称，代码就会得到相当程度的改进  
+
+```java
+public List<int[]> getFlaggedCells() {
+	List<int[]> flaggedCells = new ArrayList<int[]();
+	for (int[] x : gameBoard)
+		if (x[STATUS_VALUE] == FLAGGED)
+			flaggedCells.add(x);
+		return flaggedCells;
+}
+```
+
+不用int表示单元格，新写一个类，类包括一个名副其实的函数(isFlagged)，从而掩盖住那个`魔术数`。  
+
+```java
+public List<int[]> getFlaggedCells() {
+	List<Cell> flaggedCells = new ArrayList<Cell>();
+	for (Cell cell : gameBoard)
+		if (cell.isFlagged)
+			flaggedCells.add(cell);
+		return flaggedCells;
+}
+```
 
 不要以a1,a2,aN这样的命名  
 
