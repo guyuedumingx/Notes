@@ -266,7 +266,7 @@ $fn.extend({
 
 ```
 $.extend({
-max:function(a,b) {
+ma:function(a,b) {
 	return a>= b ? a:b;
 },
 min:function(a,b) {
