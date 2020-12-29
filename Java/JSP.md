@@ -241,9 +241,9 @@ ${pageContext.request.contextPath}：动态获取虚拟目录
 
 #### 资源链接   
 
-[!JSP复习总结](https://blog.csdn.net/GodJing007/article/details/103500726)  
+[JSP复习总结](https://blog.csdn.net/GodJing007/article/details/103500726)  
 
-[!github](https://github.com/guyuedumingx/Notes)  
+[github](https://github.com/guyuedumingx/Notes)  
 
 
 
