@@ -1,0 +1,47 @@
+* Servelt
+** web.xml配置
+*** Servlet虚拟路径
+    #+begin_src xml
+      <servlet>
+        <servlet-name>Index</servlet-name>
+        <servlet-class>controller.IndexController</servlet-class>
+      </servlet>
+      <servlet-mapping>
+        <servlet-name>Index</servlet-name>
+        <url-pattern>/index</url-pattern>
+      </servlet-mapping>
+    #+end_src
+*** Filter映射
+    #+begin_src xml
+      <filter>
+        <filter-name>Filter1</filter-name>
+        <filter-class>common.IndexFilter<filter-class>
+      </filter>
+      <filter-mapping>
+        <filter-name>Filter</filter-name>
+        <url-pattern>/*<url-pattern>
+  
+        <!--拦截不同方式的访问请求-->
+        <dispatcher>REQUEST INCLUDE FORWARD ERROR</dispatcher>
+      </filter-mapping>
+    #+end_src
+*** 监听器
+    #+begin_src xml
+      <listener>
+        <listener-class>
+          common.listener.MyListener
+        </listener-class>
+      </listener>
+    #+end_src
+** servlet生命周期
+* JSP
+** JSP运行原理
+* JDBC
+  #+begin_src java
+    DriverManager.registerDriver(Driver driver);
+    //或  DriverName = "com.mysql.jdbc.Driver"
+    Class.forName("DriverName")
+
+    //MySQL的url:   jdbc:mysql://hostname:port/databasename
+    Connection conn = DriverManager.gtConnection(String url, String user, String pwd);
+  #+end_src

@@ -227,3 +227,201 @@
         }
      }
    #+end_src 
+* 单例模式
+  #+begin_src java
+    public class Singleton {
+        private static Singleton singleton = new Singleton();
+
+        //限制外部new对象
+        private Singleton() {
+        }
+
+        //通过该方法获取实例对象
+        public static Singleton getSingleton() {
+            return singleton;
+        }
+
+        //类中其他方法尽量是static
+        public static void doSomething() {
+        }
+    }
+  #+end_src
+* 工厂模式
+** 工厂方法模式
+   #+begin_src java
+     public interface Human {
+         public void getColor();
+         public void talk();
+     }
+
+     public class BlackHuman implements Human {
+         public void getColor() {
+             sout("");
+         }
+
+         public void talk() {
+            sout("");
+         }
+     }
+
+     public class YellowHuman implements Human {
+         public void getColor() {
+             sout("");
+         }
+
+         public void talk() {
+            sout("");
+         }
+     }
+
+     //抽象人类创建工厂
+     public abstract class AbstractHumanFactory {
+         public abstract <T extends Human> T createHuman(Class<T> c);
+     }
+
+
+     public class HumanFactory extends AbstractHumanFactory{
+         public <T extends Human> T createHuman(Class<T> c) {
+             Human human = null;
+             try {
+                human = (Human)Class.forName(c.getName()).newInstance();
+             } catch(Exception e) {
+                 sout("");
+             }
+             return (T)human;
+         }
+     }
+
+   #+end_src 
+*** 定义
+**** Define an interface for creating an object, but let subclasses decide which class to instantiate.
+**** Factory Method lets a class defer instantiation to subclasses
+**** 定义一个用于创建对象的接口，让子类实例化哪一个类。工厂方法使类的实例化延迟到其子类
+** 简单工厂模式
+   #+begin_src java
+     public interface Human {
+         public void getColor();
+         public void talk();
+     }
+
+     public class BlackHuman implements Human {
+         public void getColor() {
+             sout("");
+         }
+
+         public void talk() {
+            sout("");
+         }
+     }
+
+     public class YellowHuman implements Human {
+         public void getColor() {
+             sout("");
+         }
+
+         public void talk() {
+            sout("");
+         }
+     }
+
+     public class HumanFactory {
+         public static <T extends Human> T createHuman(Class<T> c) {
+             Human human = null;
+             try {
+                human = (Human)Class.forName(c.getName()).newInstance();
+             } catch(Exception e) {
+                 sout("");
+             }
+             return (T)human;
+         }
+     }
+
+   #+end_src 
+   HumanFactory类去掉了继承抽象类，并把createHuman改成了static;
+   该模式是工厂方法模式的弱化，也叫静态工厂模式。
+*** 缺点
+**** 工厂类扩展比较困难
+**** 不符合开闭原则
+** 多工厂模式
+  #+begin_src java
+    public abstract class AbstractHumanFactory {
+        public abstract Human createHuman();
+    }
+
+    public class BlackHumanFactory extends AbstractHumanFactory {
+        public Human createHuman() {
+            return new BlackHuman();
+        }
+    }
+    public class YellowHumanFactory extends AbstractHumanFactory {
+        public Human createHuman() {
+            return new YellowHuman();
+        }
+    }
+  #+end_src 
+*** 定义
+    是工厂方法模式的扩展，在工厂方法模式中,如果不同人种分别有不同的初始化参数
+    则会导致工厂类的臃肿
+** 使用工厂模式替换单例
+   #+begin_src java
+     public class Singleton {
+         private Singleton() {
+         }
+
+         public void doSomething() {
+         }
+     }
+
+     //负责生成单例的工厂类
+     public class SingletonFactory {
+         private static Singleton singleton;
+
+         static {
+             try {
+                 Class cl = Class.forName(Singleton.class.getName());
+                 //获得无参构造
+                 Constructor = constructor = cl.getDeclaredConstructor();
+                 //设置无参构造可访问
+                 constructor.setAccessible(true);
+                 singleton = (Singleton)constructor.newInstance();
+             } catch (Exception e) {
+                 //异常处理
+             }
+         }
+     }
+   #+end_src
+* 模板方法模式
+  #+begin_src java
+    public abstract class AbstractClass {
+        //基本方法
+        protected abstract void doSomething();
+        //基本方法
+        protected abstract void doAnything();
+
+        //模板方法
+        //模板方法模式的精髓
+        public void templateMethod() {
+            /**
+            ,* 调用基本方法，完成相关的逻辑
+            ,*/ 
+            this.doSomething();
+            this.doAnything();
+        }
+    }
+
+    public class ConcreteClass1 extends AbstractClass {
+        //实现基本方法
+        protected void doAnything() {
+            //doSomething
+        }
+
+        protected void doSomething() {
+            //doSomething
+        }
+    }
+
+  #+end_src
+** Define the skeleton of an algorithm in an operation, deferring some steps to subclasses
+** Template Method lets subclasses redefine certain steps of an algorithm without changing the algorithm's structure
+** 定义一个操作中的算法框架，将一些步骤延迟到子类中。使得子类可以不改变一个算法的结构即可重定义该算法的某些特定步骤
+* Page 117

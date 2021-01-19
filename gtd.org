@@ -1,0 +1,76 @@
+* 收集箱  
+* 执行清单
+* 项目清单
+** 计算机网络预习
+** python程序设计预习
+** 计算机组成原理及汇编语言
+** javaEE框架程序设计
+** Oracle数据库
+** manim
+* 等待清单
+** TODO 准备讲给师弟们的知识
+*** 学习路线
+**** java、前端、python、算法知识
+***** java资源
+****** [[https://www.bilibili.com/video/BV1Rt411f7F5?from=search&seid=9204691448479784781][毕向东]]
+****** [[https://www.bilibili.com/video/BV1J4411877m?from=search&seid=14072780989196707802][javaweb]]
+****** Java核心技术卷I
+****** Java编程思想
+***** 前端资源
+****** 考核文档中的网课
+***** 算法
+****** leetcode
+****** 做考核
+*** idea的安装与基本使用
+**** 学校邮箱注册
+     [[https://www.jetbrains.com/zh-cn/community/education/#students]]
+     [[https://zhuanlan.zhihu.com/p/136497468][知乎教程]]
+**** 跑一个基本的java项目
+***** 理解java项目怎么运行
+***** debug
+*** vscode
+    notepad notepad++ atom sublime 
+**** emmet
+     [[https://docs.emmet.io/abbreviations/syntax/]]
+**** python调试
+     - 断点
+     - 变量的实时的值在哪里看
+     - 怎么跳转到函数定义处
+     - 怎么补全
+**** 前端的插件
+     - Live Server
+**** markdown插件
+     - markdown-all-in-one
+     - Markdown Previous Enhanced
+*** markdown
+**** 语法
+     - 标题
+     - 表格
+     - 链接
+     - 代码块
+     - 列表
+**** 应用场景
+***** 简书、github、知乎
+***** 自己的私人笔记系统
+**** 常见的编辑器
+***** typora、vscode
+*** xmind
+**** 添加子标题
+**** 添加平行标题
+**** 导入markdown
+**** 空格输入
+**** 破解教程
+     [[https://www.ghpym.com/?s=xmind][果核剥壳]]
+*** 选讲
+**** 计算机的运行原理
+**** python基本入门
+**** github
+*** 编码
+* 可能清单
+** TODO 实现一个tomcat服务器
+** TODO 实现一个docker
+* 日历
+** 带大一下学期的书回校
+   DEADLINE: <2021-02-27 Sat>
+* 参考资料
+* 回收箱

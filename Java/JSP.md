@@ -233,7 +233,7 @@ ${map["gender"]}
 
 1. EL表达式中有11个隐式对象  
 
-*`page`对象*: 可以获取其他8个内置对象  
+*`pageContext`对象*: 可以获取其他8个内置对象  
 
 ```jsp
 ${pageContext.request.contextPath}：动态获取虚拟目录  
